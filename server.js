@@ -6,7 +6,8 @@ import morgan from 'morgan';
 import bluebird from 'bluebird';
 
 import config from './config';
-import authRouter from './routes/auth';
+import authRoute from './routes/auth';
+import userRoute from './routes/user';
 import errHandler from './middlewares/errorHandler';
 import checkToken from './middlewares/checkToken';
 
@@ -34,9 +35,6 @@ app.use(session({
   secret: config.secret
 }));
 
-app.use('/api/', authRouter);
-app.use('/test', checkToken, (req, res) => {
-  res.json('test');
-})
-
+app.use('/api', authRoute);
+app.use('/api', checkToken, userRoute);
 app.use(errHandler);
