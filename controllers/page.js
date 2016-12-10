@@ -1,4 +1,5 @@
 import Page from '../models/page';
+import User from '../models/user';
 
 export async function create(req, res, next) {
   const pageData = req.body;
@@ -29,4 +30,74 @@ export async function getAll(req, res, next) {
   }
 
   res.json({ pages });
+}
+
+export async function getPagesByUserLogin(req, res, next) {
+  const { login } = req.params;
+
+  try {
+    var user = await User.findOne({ login });
+  } catch ({ message }) {
+    return next({
+      status: 500,
+      message
+    })
+  }
+
+  if(!user){
+    return next({
+      status: 404,
+      message: 'User not found'
+    })
+  }
+
+  try {
+    var pages = await Page.find({ userId: user._id })
+  } catch ({ message }) {
+    return next({
+      status: 500,
+      message
+    })
+  }
+
+  res.json({ pages });
+}
+
+export async function deletePage(req, res, next) {
+  const _id = req.params.id;
+  const userId = req.user._id;
+
+  try {
+    var page = await Page.findOne({ _id });
+  } catch ({ message }) {
+    return next({
+      status: 500,
+      message
+    })
+  }
+
+  if(!page){
+    return next({
+      status: 404,
+      message: 'Page not found'
+    })
+  }
+
+  if (userId.toString() !== page.userId.toString()) {
+    return next({
+      status: 403,
+      message: 'Prmission denied'
+    })
+  }
+
+  try {
+    page.remove()
+  } catch ({ message }) {
+    return next({
+      status: 500,
+      message
+    })
+  }
+
+  return res.json({ message: 'Success' })
 }
