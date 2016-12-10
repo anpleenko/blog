@@ -44,10 +44,10 @@ export async function getPagesByUserLogin(req, res, next) {
     })
   }
 
-  if(!user){
+  if (!user) {
     return next({
       status: 404,
-      message: 'User not found'
+      message: 'User not found',
     })
   }
 
@@ -56,7 +56,7 @@ export async function getPagesByUserLogin(req, res, next) {
   } catch ({ message }) {
     return next({
       status: 500,
-      message
+      message,
     })
   }
 
@@ -76,17 +76,17 @@ export async function deletePage(req, res, next) {
     })
   }
 
-  if(!page){
+  if (!page) {
     return next({
       status: 404,
-      message: 'Page not found'
+      message: 'Page not found',
     })
   }
 
   if (userId.toString() !== page.userId.toString()) {
     return next({
       status: 403,
-      message: 'Prmission denied'
+      message: 'Prmission denied',
     })
   }
 
@@ -95,9 +95,9 @@ export async function deletePage(req, res, next) {
   } catch ({ message }) {
     return next({
       status: 500,
-      message
+      message,
     })
   }
 
-  return res.json({ message: 'Success' })
+  return res.json({ message: 'Success' });
 }

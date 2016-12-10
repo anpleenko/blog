@@ -8,7 +8,7 @@ export async function getCurrentUser(req, res, next) {
   } catch ({ message }) {
     return next({
       status: 500,
-      message
+      message,
     })
   }
 

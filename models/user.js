@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt-as-promised';
 
 const UserShema = new Schema({
   login: { type: String, unique: true, lowercase: true, index: true },
-  password: String
+  password: String,
 })
 
 UserShema.pre('save', async function(next){
@@ -18,7 +18,7 @@ UserShema.pre('save', async function(next){
   next();
 });
 
-UserShema.methods.comparePasswords = function(password){
+UserShema.methods.comparePasswords = function(password) {
   return bcrypt.compare(password, this.password);
 }
 

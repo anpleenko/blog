@@ -34,7 +34,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({
   resave: true,
   saveUninitialized: true,
-  secret: config.secret
+  secret: config.secret,
 }));
 
 app.use('/api', authRoute);
