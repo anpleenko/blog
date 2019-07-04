@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --exec babel-node server.js"
+    "start": "nodemon --exec babel-node server.js",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "keywords": [],
   "author": "",
@@ -17,7 +19,8 @@
     "bcrypt-as-promised": "^1.1.0",
     "bluebird": "^3.4.6",
     "jsonwebtoken": "^7.2.1",
-    "morgan": "^1.7.0"
+    "morgan": "^1.7.0",
+    "snyk": "^1.189.0"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",
@@ -30,5 +33,6 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^2.2.3",
     "eslint-plugin-react": "^6.8.0"
-  }
+  },
+  "snyk": true
 }
